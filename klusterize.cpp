@@ -5,10 +5,16 @@
 using namespace cv;
 using namespace std;
 
-void run_filter(Mat input_image, Mat &output_image) {
-  // TODO: Rewrite this as necessary for the filter
-  // Currently all it does is just output same image
-  output_image = input_image;
+const char *window_name = "Klusterize (c) Jay Bosamiya";
+Mat input_image, output_image;
+
+int cluster_count = 16;
+int distance_weighting = 0;
+
+void run_k_means(int ignore_1 = 0, void * ignore_2 = NULL) {
+  output_image = input_image.clone();
+
+  imshow(window_name, output_image);
 }
 
 void show_help(const char *progname) {
@@ -21,8 +27,6 @@ int main( int argc, char** argv ) {
     return -1;
   }
 
-  Mat input_image, output_image;
-
   input_image = imread(argv[1], CV_LOAD_IMAGE_COLOR);
   if ( ! input_image.data ) {
       show_help(argv[0]);
@@ -30,7 +34,11 @@ int main( int argc, char** argv ) {
       return -1;
   }
 
-  run_filter(input_image, output_image);
+  namedWindow(window_name, CV_WINDOW_AUTOSIZE);
+  createTrackbar("Number of clusters: ", window_name, &cluster_count, 256, run_k_means);
+  createTrackbar("Distance Weighting: ", window_name, &distance_weighting, 100, run_k_means);
+
+  run_k_means();
 
   bool saved_once_atleast = false;
   while (true) {
