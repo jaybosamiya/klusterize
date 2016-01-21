@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 2.8)
+project( klusterize )
+find_package( OpenCV REQUIRED )
+add_executable( klusterize klusterize )
+target_link_libraries( klusterize ${OpenCV_LIBS} )
