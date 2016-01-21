@@ -32,7 +32,20 @@ int main( int argc, char** argv ) {
 
   run_filter(input_image, output_image);
 
-  imwrite(argv[2],output_image);
+  bool saved_once_atleast = false;
+  while (true) {
+    char input = waitKey(0);
+    if ( input == 's' ) {
+      imwrite(argv[2],output_image);
+      saved_once_atleast = true;
+    } else if ( input == 'q' ) {
+      break;
+    }
+  }
+
+  if ( ! saved_once_atleast ) {
+    imwrite(argv[2],output_image);
+  }
 
   return 0;
 }
