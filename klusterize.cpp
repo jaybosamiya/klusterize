@@ -61,9 +61,9 @@ void run_k_means(int ignore_1 = 0, void * ignore_2 = NULL) {
         }
       }
 
-      output_image.at<Vec3b>(r,c)[2] = (unsigned char)(best_center[2] * 255);
-      output_image.at<Vec3b>(r,c)[1] = (unsigned char)(best_center[3] * 255);
-      output_image.at<Vec3b>(r,c)[0] = (unsigned char)(best_center[4] * 255);
+      output_image.at<Vec3b>(r,c)[2] = (unsigned char)(best_center[2] * 255.0 / (1 - (distance_weighting / 100.0)));
+      output_image.at<Vec3b>(r,c)[1] = (unsigned char)(best_center[3] * 255.0 / (1 - (distance_weighting / 100.0)));
+      output_image.at<Vec3b>(r,c)[0] = (unsigned char)(best_center[4] * 255.0 / (1 - (distance_weighting / 100.0)));
     }
   }
 
